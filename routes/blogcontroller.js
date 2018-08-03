@@ -108,5 +108,23 @@ router.route('/blog/:blog_id').get(function (req, res) {
     }
 });
 
+router.route('/blogtype').get(function (req, res) {
+    try {
+        blogController.blogs(function (err, doc) {
+            if (!err) {
+                res.send(doc);
+            } else {
+                res.send(err);
+            }
+        });
+    } catch (err) {
+        res.send({
+            err: err,
+            message: message.error.parameter,
+            code: 204
+        });
+    }
+});
+
 
 module.exports = router;

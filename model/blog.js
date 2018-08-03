@@ -1,6 +1,11 @@
 var blog = function () {
 
+    blogtypes = ["General", "Entertainment", "Question"];
     blogSchema = mongoose.Schema({
+        blog_type: {
+            type: String,
+            required: true
+        },
         blog_title: {
             type: String,
             required: true
@@ -13,7 +18,12 @@ var blog = function () {
             default: Date.now
         },
         feature_media: {
-            type: String
+            src: {
+                type: String
+            },
+            type: {
+                type: String
+            }
         },
         media: {
             image: [],
@@ -101,10 +111,21 @@ var blog = function () {
             }
         });
     }
+
+    _blogs=function(callback){
+        result_obtained = {
+            data: blogtypes,
+            code: 200,
+            success: true
+        };
+        callback(null, result_obtained);
+    }
+
     return {
         createBlog: _createBlog,
         getBlog: _getBlog,
-        getAllBlog: _getAllBlog
+        getAllBlog: _getAllBlog,
+        blogs:_blogs
     }
 
 }();

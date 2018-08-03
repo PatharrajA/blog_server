@@ -37,26 +37,11 @@ var user = function () {
 
     _userModel = mongoose.model('User', userModel);
 
-    // userModel.pre('save', function (next) {
-    //     var user = this;
-
-    //     if (!user.isModified('password')) {
-    //         return next();
-    //     }
-
-    //     bcrypt.genSalt(10, function (err, salt) {
-    //         bcrypt.hash(user.password, salt, function (err, hash) {
-    //             user.password = hash;
-    //             next();
-    //         });
-    //     });
-    // });
 
     userModel.pre('save', function (next) {
         var user = this;
         if (user.isModified('password')) {
             bcrypt.genSalt(10, function (err, salt) {
-                console.log(err, salt, "***********");
                 if (err) {
                     return next(err);
                 } else {
@@ -67,8 +52,6 @@ var user = function () {
                             user.password = hash;
                             next();
                         }
-                        console.log(err, hash, "***********");
-
                     });
                 }
             });
@@ -157,7 +140,8 @@ var user = function () {
                     user: user,
                     token: user_token,
                     message: message.success.register,
-                    code: 201
+                    code: 201,
+                    success: true
                 }
                 callback(null, result_obtained);
             } else {

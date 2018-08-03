@@ -9,7 +9,6 @@ var token = function () {
     };
 
     ensureAuthenticated = function (userToken) {
-        console.log(userToken)
         if (!userToken) {
             return {
                 success: false

@@ -20,13 +20,12 @@ router.route('/login').post(function (req, res) {
     }
 });
 
-router.route('/signup').post(function (req, res) {
+router.route('/register').post(function (req, res) {
     try {
         userController.register(req.body, function (err, user) {
             if (!err) {
                 res.send(user);
             } else {
-                console.log(err);
                 res.send(err);
             }
         });
